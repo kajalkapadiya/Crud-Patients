@@ -1,0 +1,33 @@
+<!-- <form (ngSubmit)="onFetchPatient()">
+   <div>
+    <label for="apikey">API Key:</label>
+    <input id="apikey" [(ngModel)]="apikey" name="apikey" required />
+  </div>
+  <div>
+    <label for="patient_id">Patient ID:</label>
+    <input id="patient_id" [(ngModel)]="patient_id" name="patient_id" />
+  </div>
+  <div>
+    <label for="mobile">Mobile:</label>
+    <input id="mobile" [(ngModel)]="mobile" name="mobile" />
+  </div>
+  <button type="submit">Fetch Patient</button>
+</form> -->
+
+<div *ngIf="patient">
+  <h3>Patient Details</h3>
+  <p>Name: {{ patient.first_name }} {{ patient.last_name }}</p>
+  <p>Mobile: {{ patient.mobile }}</p>
+  <p>Date of Birth: {{ patient.dob }}</p>
+  <p>Gender: {{ patient.gender }}</p>
+  <p>Blood Group: {{ patient.blood_group }}</p>
+  <p>Address: {{ patient.address }}</p>
+  <p>Zip Code: {{ patient.zipcode }}</p>
+</div>
+
+<h2>Patients List</h2>
+<ul>
+  <li *ngFor="let patient of patients">
+    {{ patient.name }} ({{ patient.age }} years old) - {{ patient.address }}
+  </li>
+</ul>
