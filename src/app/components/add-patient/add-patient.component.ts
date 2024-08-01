@@ -1,31 +1,7 @@
-// import { Component } from '@angular/core';
-// import { PatientService } from 'src/app/services/patient.service';
-// import { Patient } from 'src/app/models/patient.model';
-
-// @Component({
-//   selector: 'app-add-patient',
-//   templateUrl: './add-patient.component.html',
-//   styleUrls: ['./add-patient.component.css'],
-// })
-// export class AddPatientComponent {
-//   patient: Patient = {
-//     name: '',
-//     age: 0,
-//     address: '',
-//   };
-
-//   constructor(private patientService: PatientService) {}
-
-//   onSubmit(): void {
-//     this.patientService.addPatient(this.patient).subscribe((response) => {
-//       console.log('Patient added:', response);
-//     });
-//   }
-// }
-
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/models/patient.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-patient',
@@ -33,6 +9,8 @@ import { Patient } from 'src/app/models/patient.model';
   styleUrls: ['./add-patient.component.css'],
 })
 export class AddPatientComponent {
+  @Input() closeModel!: () => void;
+
   patient: Patient = {
     name: '',
     age: 0,
@@ -47,12 +25,15 @@ export class AddPatientComponent {
     blood_group: '',
   };
 
-  constructor(private patientService: PatientService) {}
+  constructor(private patientService: PatientService, private route: Router) {}
 
   onSubmit(): void {
     this.patientService.addPatient(this.patient).subscribe(
       (response) => {
         console.log('Patient added:', response);
+        this.route.navigate(['/patient-list']);
+        this.closeModel();
+        location.reload();
       },
       (error) => {
         console.error('Error adding patient:', error);

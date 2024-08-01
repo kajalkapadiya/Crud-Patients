@@ -11,4 +11,5 @@ export interface Patient {
   dob?: string;
   gender?: string;
   blood_group?: string;
+  selected?: boolean;
 }
