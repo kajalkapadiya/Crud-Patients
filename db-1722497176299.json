@@ -1,0 +1,58 @@
+{
+  "patients": [
+    {
+      "name": "vidhi",
+      "age": 20,
+      "address": "103, shantikunj society",
+      "zipcode": 395009,
+      "mobile": 9724338640,
+      "first_name": "vidhi",
+      "last_name": "patel",
+      "dob": "2024-07-11",
+      "gender": "female",
+      "blood_group": "o+",
+      "id": 1
+    },
+    {
+      "name": "0abc",
+      "age": 20,
+      "address": "surat",
+      "zipcode": 396885,
+      "mobile": 7777777777,
+      "first_name": "abc",
+      "last_name": "xyz",
+      "dob": "2024-07-11",
+      "gender": "female",
+      "blood_group": "b+",
+      "id": 2,
+      "selected": true
+    },
+    {
+      "name": "pqr",
+      "age": 50,
+      "address": "Ahmedabad",
+      "zipcode": 395884,
+      "mobile": 1111111111,
+      "first_name": "pqr",
+      "last_name": "patel",
+      "dob": "2024-07-05",
+      "gender": "male",
+      "blood_group": "B-",
+      "id": 3,
+      "selected": true
+    },
+    {
+      "name": "hubh",
+      "age": 89,
+      "address": "bin",
+      "zipcode": 900,
+      "mobile": 9724338640,
+      "first_name": "in",
+      "last_name": "ini",
+      "dob": "2024-08-02",
+      "gender": "other",
+      "blood_group": "B-",
+      "id": 5
+    }
+  ]
+}

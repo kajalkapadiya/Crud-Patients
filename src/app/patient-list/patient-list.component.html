@@ -1,60 +1,37 @@
 <div class="container mt-4">
-  <div class="container_header">
-    <h2 class="text-primary">Patient List</h2>
-
-    <button type="button" class="pill-button" (click)="openModel()">
-      Add patients
-    </button>
-  </div>
-
-  <div
-    class="modal"
-    id="myModal"
-    aria-labelledby="medicalFormModalLabel"
-    aria-hidden="true"
-    tabindex="-1"
-  >
-    <div
-      class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
-    >
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Add patients</h4>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-            (click)="closeModel()"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <div class="modal-body">
-          <app-add-patient
-            [closeModel]="closeModel.bind(this)"
-          ></app-add-patient>
-        </div>
-
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-danger"
-            (click)="closeModel()"
-            data-bs-dismiss="modal"
-          >
-            Close
-          </button>
-        </div>
-      </div>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="head-table">Patient List</h2>
+    <div>
+      <button class="btn btn-primary mr-2" (click)="search()">
+        Search Medicine
+      </button>
+      <button class="btn btn-primary" (click)="open(content)">
+        Add Patients
+      </button>
     </div>
   </div>
+  <hr />
+  <pre>{{ closeResult }}</pre>
 
-  <table class="table table-hover">
-    <thead class="thead">
+  <ng-template #content let-modal>
+    <div class="modal-header modal-lg">
+      <h4 class="modal-title" id="modal-basic-title">Add patients</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <app-add-patient [closeModel]="closeModel.bind(this)"></app-add-patient>
+    </div>
+  </ng-template>
+
+  <table class="table table-bordered table-striped table-hover">
+    <thead class="thead-dark">
       <tr>
-        <th scope="col"></th>
+        <th scope="col">#</th>
         <th scope="col">Name</th>
         <th scope="col">Age</th>
         <th scope="col">Address</th>
@@ -69,7 +46,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let patient of patients">
+      <tr
+        *ngFor="
+          let patient of patients
+            | paginate
+              : { itemsPerPage: itemsPerPage, currentPage: currentPage }
+        "
+      >
         <td>
           <input
             type="checkbox"
@@ -88,14 +71,14 @@
         <td>{{ patient.gender }}</td>
         <td>{{ patient.blood_group }}</td>
         <td *ngIf="patient.selected">
-          <div style="display: flex; align-items: center">
+          <div class="d-flex align-items-center">
             <button class="btn btn-sm mr-2" (click)="onEdit(patient)">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
                 y="0px"
-                width="25"
-                height="25"
+                width="16"
+                height="16"
                 viewBox="0 0 24 24"
               >
                 <path
@@ -108,8 +91,8 @@
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
                 y="0px"
-                width="25"
-                height="25"
+                width="16"
+                height="16"
                 viewBox="0 0 24 24"
               >
                 <path
@@ -122,6 +105,11 @@
       </tr>
     </tbody>
   </table>
+
+  <pagination-controls
+    (pageChange)="onPageChange($event)"
+    class="d-flex justify-content-center mt-4"
+  ></pagination-controls>
 
   <div *ngIf="editPatient" class="mt-4">
     <h2 class="text-primary">Edit Patient</h2>

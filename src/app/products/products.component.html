@@ -1,0 +1,53 @@
+<div class="container mt-4">
+  <h2 class="mb-4 text-center">Product Search</h2>
+
+  <form (ngSubmit)="searchProducts()" class="mb-4">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search for products..."
+        [(ngModel)]="searchTerm"
+        name="searchTerm"
+        required
+      />
+      <button type="submit" class="search-btn">Search</button>
+    </div>
+  </form>
+
+  <div
+    *ngIf="products.length === 0 && searchTerm"
+    class="alert alert-warning text-center"
+  >
+    No products found.
+  </div>
+
+  <div *ngIf="products.length > 0" class="table-responsive">
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Medicine Name</th>
+          <th scope="col">Content</th>
+          <th scope="col">Dosage Type</th>
+          <th scope="col">MRP</th>
+          <th scope="col">Price</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.medicine_name }}</td>
+          <td>{{ product.content }}</td>
+          <td>{{ product.dosage_type || "N/A" }}</td>
+          <td>₹{{ product.mrp }}</td>
+          <td>₹{{ product.price }}</td>
+          <td>
+            <button class="btn btn-success" (click)="addToCart(product)">
+              Add to Cart
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+.table {
+  transition: transform 0.2s;
+}
+
+.table-hover tbody tr:hover {
+  transform: scale(1.01);
+  background-color: #f8f9fa;
+}
+
+thead tr th {
+  background-color: #044c9d;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+h2 {
+  color: #044c9d;
+}
+
+.search-btn {
+  background-color: #044c9d;
+  color: white;
+  border: none;
+  padding: 7px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.search-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.search-btn:active {
+  background-color: #004085;
+  transform: scale(1);
+}

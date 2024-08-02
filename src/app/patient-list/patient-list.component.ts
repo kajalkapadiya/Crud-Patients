@@ -1,11 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/models/patient.model';
-import {
-  ModalDismissReasons,
-  NgbDatepickerModule,
-  NgbModal,
-} from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-patient-list',
@@ -14,12 +11,15 @@ import {
 })
 export class PatientListComponent implements OnInit {
   patients: Patient[] = [];
-  editPatient: Patient | null = null; // Add this property
+  editPatient: Patient | null = null;
   closeResult = '';
+  currentPage = 1;
+  itemsPerPage = 5;
 
   constructor(
     private patientService: PatientService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -78,16 +78,25 @@ export class PatientListComponent implements OnInit {
     if (modelDiv != null) {
       modelDiv.style.display = 'block';
     }
-    // this.modalService
-    //   .open(content, { ariaLabelledBy: 'modal-basic-title' })
-    //   .result.then(
-    //     (result) => {
-    //       this.closeResult = `Closed with: ${result}`;
-    //     },
-    //     (reason) => {
-    //       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    //     }
-    //   );
+  }
+
+  open(content: TemplateRef<any>) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Complete the form click on Add patients.`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(
+            reason
+          )} Click on Add patients to add in the table`;
+        }
+      );
+  }
+
+  search() {
+    this.route.navigate(['/app-products']);
   }
 
   private getDismissReason(reason: any): string {
@@ -109,6 +118,14 @@ export class PatientListComponent implements OnInit {
   }
 
   onToggle(patient: Patient): void {
-    patient.selected = !patient.selected;
+    console.log(patient);
+    patient.selected = patient.selected;
+  }
+
+  onPageChange(event: number): void {
+    console.log('Page changed to:', event);
+
+    this.currentPage = event;
+    console.log('Current page:', this.currentPage);
   }
 }
