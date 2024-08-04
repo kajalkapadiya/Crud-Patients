@@ -19,12 +19,22 @@ export class ProductService {
     return this.http.post<any>(this.apiUrl, body);
   }
 
-  getProductDetails(medicineId: string): Observable<any> {
+  getProductDetails(
+    medicineId?: string,
+    medicineIds?: string[]
+  ): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    const body = {
+    const body: any = {
       apikey: this.apiKey,
-      medicine_id: medicineId,
     };
+
+    if (medicineId) {
+      body.medicine_id = medicineId;
+    }
+
+    if (medicineIds && medicineIds.length >= 2) {
+      body.medicine_ids = JSON.stringify(medicineIds);
+    }
 
     return this.http.post<any>(this.apiUrlForDetails, body, { headers });
   }

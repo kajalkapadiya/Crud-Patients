@@ -83,6 +83,7 @@
 .table {
   margin-bottom: 1rem;
   background-color: #f8f9fa;
+  /* opacity: 0.8; */
 }
 .table thead th {
   background-color: #044c9d;
@@ -152,4 +153,10 @@
 
 .head-table {
   color: #044c9d;
+}
+
+.btn-search-link,
+.btn-add-patient {
+  background-color: #0d6efd;
+  color: white;
 }

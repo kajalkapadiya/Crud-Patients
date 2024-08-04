@@ -74,7 +74,7 @@ export class PatientListComponent implements OnInit {
   }
 
   openModel() {
-    const modelDiv = document.getElementById('myModal');
+    const modelDiv = document.getElementById('medicalFormModal');
     if (modelDiv != null) {
       modelDiv.style.display = 'block';
     }

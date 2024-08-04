@@ -15,6 +15,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ProductComponent } from './products/products.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CartComponent } from './cart/cart.component';
+import { LoginComponent } from './login/login.component';
+import { BackgroundComponent } from './background/background.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { CartComponent } from './cart/cart.component';
     HeaderComponent,
     ProductComponent,
     CartComponent,
+    LoginComponent,
+    BackgroundComponent,
   ],
   imports: [
     BrowserModule,

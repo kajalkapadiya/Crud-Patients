@@ -40,3 +40,96 @@ h2 {
   background-color: #004085;
   transform: scale(1);
 }
+
+/* Add to Cart Button Styles */
+.add-to-cart-btn {
+  color: #044c9d;
+  border: 1px solid #044c9d;
+  padding: 7px 13px;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #044c9d;
+  color: white;
+  transform: scale(1.05);
+}
+
+.add-to-cart-btn:active {
+  background-color: red;
+  transform: scale(1);
+}
+
+.text-center {
+  text-align: center;
+  vertical-align: middle;
+}
+/* Position the Show Cart button in the bottom right corner */
+.show-cart-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: #044c9d;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.show-cart-button:hover {
+  background-color: #044c9d;
+  transform: scale(1.1);
+}
+
+.show-cart-button svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+/* Shake animation */
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+.shake {
+  animation: shake 0.5s;
+  animation-iteration-count: 1;
+}
