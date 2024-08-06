@@ -15,7 +15,6 @@ export class AddPatientComponent {
     name: '',
     age: 0,
     address: '',
-    // apikey: '',
     zipcode: 0,
     mobile: 0,
     first_name: '',
@@ -30,7 +29,6 @@ export class AddPatientComponent {
   onSubmit(): void {
     this.patientService.addPatient(this.patient).subscribe(
       (response) => {
-        console.log('Patient added:', response);
         this.route.navigate(['/patient-list']);
         this.closeModel();
         location.reload();

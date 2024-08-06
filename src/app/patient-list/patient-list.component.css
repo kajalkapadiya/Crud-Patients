@@ -83,11 +83,39 @@
 .table {
   margin-bottom: 1rem;
   background-color: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+  border-collapse: collapse; /* Ensure no double borders */
   /* opacity: 0.8; */
 }
+
+.table-bordered {
+  border: none;
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: none;
+}
+
 .table thead th {
   background-color: #044c9d;
   color: white;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.table tbody tr:nth-of-type(odd) {
+  background-color: #f4f4f4;
+}
+
+.table tbody tr:nth-of-type(even) {
+  background-color: #ffffff;
+}
+
+.table tbody tr:hover {
+  background-color: #e0e0e0;
 }
 
 .table th,
@@ -159,4 +187,25 @@
 .btn-add-patient {
   background-color: #0d6efd;
   color: white;
+}
+
+.sort-icon {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: solid 2px transparent;
+  border-width: 0 4px 4px 4px;
+  border-color: transparent transparent #000000;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+.sort-icon.asc {
+  border-width: 4px 4px 0 4px;
+  border-color: #000000 transparent transparent transparent;
+}
+
+.sort-icon.desc {
+  border-width: 0 4px 4px 4px;
+  border-color: transparent transparent #000000 transparent;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/models/patient.model';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,6 +15,11 @@ export class PatientListComponent implements OnInit {
   closeResult = '';
   currentPage = 1;
   itemsPerPage = 5;
+  sortColumn: string = 'name';
+  sortOrder: string = 'asc';
+
+  @ViewChild('editPatientModal', { static: true })
+  editPatientModal!: TemplateRef<any>;
 
   constructor(
     private patientService: PatientService,
@@ -42,6 +47,7 @@ export class PatientListComponent implements OnInit {
 
   onEdit(patient: Patient): void {
     this.editPatient = { ...patient };
+    this.open(this.editPatientModal);
   }
 
   onUpdate(): void {
@@ -56,6 +62,7 @@ export class PatientListComponent implements OnInit {
         }
       );
     }
+    this.closeModel();
   }
 
   onDelete(id?: number): void {
@@ -115,17 +122,14 @@ export class PatientListComponent implements OnInit {
     if (modelDiv != null) {
       modelDiv.style.display = 'none';
     }
+    this.modalService.dismissAll();
   }
 
   onToggle(patient: Patient): void {
-    console.log(patient);
     patient.selected = patient.selected;
   }
 
   onPageChange(event: number): void {
-    console.log('Page changed to:', event);
-
     this.currentPage = event;
-    console.log('Current page:', this.currentPage);
   }
 }

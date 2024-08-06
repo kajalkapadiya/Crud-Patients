@@ -1,105 +1,21 @@
-<!-- <div class="background">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <path
-      d="M12 0C18.627 0 24 5.373 24 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm0 1.5C6.201 1.5 1.5 6.201 1.5 12c0 5.799 4.701 10.5 10.5 10.5 5.799 0 10.5-4.701 10.5-10.5 0-5.799-4.701-10.5-10.5-10.5zm0 1.65a8.85 8.85 0 1 1 0 17.7 8.85 8.85 0 0 1 0-17.7zm0 2.15a6.7 6.7 0 1 0 0 13.4 6.7 6.7 0 0 0 0-13.4zM11.25 5h1.5v1.8h-1.5V5zm0 4.5h1.5v7.5h-1.5v-7.5z"
-    ></path>
-  </svg>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <path
-      d="M12 0C18.627 0 24 5.373 24 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm0 1.5C6.201 1.5 1.5 6.201 1.5 12c0 5.799 4.701 10.5 10.5 10.5 5.799 0 10.5-4.701 10.5-10.5 0-5.799-4.701-10.5-10.5-10.5zm0 1.65a8.85 8.85 0 1 1 0 17.7 8.85 8.85 0 0 1 0-17.7zm0 2.15a6.7 6.7 0 1 0 0 13.4 6.7 6.7 0 0 0 0-13.4zM11.25 5h1.5v1.8h-1.5V5zm0 4.5h1.5v7.5h-1.5v-7.5z"
-    ></path>
-  </svg>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <path
-      d="M12 0C18.627 0 24 5.373 24 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm0 1.5C6.201 1.5 1.5 6.201 1.5 12c0 5.799 4.701 10.5 10.5 10.5 5.799 0 10.5-4.701 10.5-10.5 0-5.799-4.701-10.5-10.5-10.5zm0 1.65a8.85 8.85 0 1 1 0 17.7 8.85 8.85 0 0 1 0-17.7zm0 2.15a6.7 6.7 0 1 0 0 13.4 6.7 6.7 0 0 0 0-13.4zM11.25 5h1.5v1.8h-1.5V5zm0 4.5h1.5v7.5h-1.5v-7.5z"
-    ></path>
-  </svg>
-  <div class="content">
-    <div class="login-container">
-      <div class="content-container">
-        <div class="intro-section">
-          <h2>Welcome to Our Medical Site</h2>
-          <p>
-            Here, you can find the best medical solutions tailored to your
-            needs.
-          </p>
-        </div>
-        <div class="login-section">
-          <div class="card">
-            <div class="card-header">
-              {{ isLoginMode ? "Login" : "Sign Up" }}
-            </div>
-            <div class="card-body">
-              <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    ngModel
-                    name="email"
-                    class="form-control"
-                    required
-                    email
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="password">Password</label>
-                  <input
-                    type="password"
-                    id="password"
-                    ngModel
-                    name="password"
-                    class="form-control"
-                    required
-                    minlength="6"
-                  />
-                </div>
-                <div class="form-group">
-                  <button
-                    class="btn btn-primary"
-                    type="submit"
-                    [disabled]="!authForm.valid"
-                  >
-                    {{ isLoginMode ? "Login" : "Sign Up" }}
-                  </button>
-                  |
-                  <button
-                    class="btn btn-secondary"
-                    type="button"
-                    (click)="onSwitchMode()"
-                  >
-                    Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        <div class="image-container">
-          <img src="3d-medical-image.png" alt="Medical Image" />
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-Use of a subtle background image or pattern.  -->
-
 <div class="login-container">
   <div class="left-side">
-    <h2>Welcome</h2>
+    <h1>Welcome to eVitalRx</h1>
     <p>Here, you can find the best medical solutions tailored to your needs.</p>
+    <!-- <img src="assets/pharmacy.jpg" /> -->
+    <video autoplay muted loop class="background-video">
+      <source src="assets/pharmvid.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
   </div>
   <div class="right-side">
     <div class="card">
-      <div class="card-header">
+      <h3 class="card-header">
         {{ isLoginMode ? "Login" : "Sign Up" }}
-      </div>
+      </h3>
       <div class="card-body">
         <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
           <div class="form-group">
-            <label for="email">Email</label>
             <input
               type="email"
               id="email"
@@ -108,10 +24,11 @@ Use of a subtle background image or pattern.  -->
               class="form-control"
               required
               email
+              placeholder=" "
             />
+            <label for="email">Email</label>
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
             <input
               type="password"
               id="password"
@@ -120,7 +37,9 @@ Use of a subtle background image or pattern.  -->
               class="form-control"
               required
               minlength="6"
+              placeholder=" "
             />
+            <label for="password">Password</label>
           </div>
           <div class="form-group">
             <button
@@ -130,7 +49,7 @@ Use of a subtle background image or pattern.  -->
             >
               {{ isLoginMode ? "Login" : "Sign Up" }}
             </button>
-            |
+
             <button
               class="btn btn-secondary"
               type="button"

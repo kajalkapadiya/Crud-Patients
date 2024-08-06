@@ -1,64 +1,10 @@
-<!-- <div class="container mt-4">
-  <h2 class="mb-4 text-center">Shopping Cart</h2>
-
-  <div *ngIf="cartItems.length === 0" class="alert alert-info text-center">
-    Your cart is empty.
-  </div>
-
-  <div *ngIf="cartItems.length > 0" class="cart-container">
-    <div class="cart-item" *ngFor="let item of cartItems">
-      <div class="item-details">
-        <img
-          src="{{ item.imageUrl }}"
-          alt="{{ item.medicine_name }}"
-          class="item-image"
-        />
-        <div class="item-info">
-          <h3 class="item-title">{{ item.medicine_name }}</h3>
-          <p class="item-text"><strong>Size:</strong> {{ item.size }}</p>
-          <p class="item-text">
-            <strong>Packing Size:</strong> {{ item.packing_size }}
-          </p>
-          <p class="item-text"><strong>Content:</strong> {{ item.content }}</p>
-          <p class="item-text">
-            <strong>Manufacturer:</strong> {{ item.manufacturer_name }}
-          </p>
-          <div class="quantity-controls">
-            <button class="quantity-btn" (click)="decreaseQuantity(item)">
-              -
-            </button>
-            <span class="quantity">{{ item.quantity || 1 }}</span>
-            <button class="quantity-btn" (click)="increaseQuantity(item)">
-              +
-            </button>
-          </div>
-        </div>
-        <div class="item-price">
-          <p class="price-text">₹{{ item.price }}</p>
-          <p class="total-text">
-            Total: ₹{{ item.price * (item.quantity || 1) }}
-          </p>
-        </div>
-      </div>
-      <button class="btn btn-danger btn-remove" (click)="removeFromCart(item)">
-        Remove
-      </button>
-    </div>
-
-    <div class="cart-actions">
-      <button class="btn btn-secondary btn-clear" (click)="clearCart()">
-        Clear Cart
-      </button>
-      <button class="btn btn-primary btn-checkout">Place Order</button>
-    </div>
-  </div>
-</div> -->
-
 <div class="container mt-4">
   <h2 class="mb-4 text-center">Shopping Cart</h2>
 
   <div *ngIf="cartItems.length === 0" class="alert alert-info text-center">
-    Your cart is empty.
+    Your cart is empty.<a href="/app-products">
+      <p class="shopping-link">let's shopping</p></a
+    >
   </div>
 
   <div *ngIf="cartItems.length > 0" class="cart-layout">
@@ -114,12 +60,14 @@
           </svg>
         </button>
       </div>
+      <div
+        *ngIf="successMessage"
+        class="alert alert-success"
+        [innerHTML]="successMessage"
+      ></div>
 
       <div class="cart-actions">
         <button class="btn btn-clear" (click)="clearCart()">Clear Cart</button>
-        <button class="btn btn-checkout" (click)="placeOrder()">
-          Place Order
-        </button>
       </div>
     </div>
 
@@ -127,6 +75,109 @@
       <h3>Order Summary</h3>
       <p>Total Items: {{ getTotalItems() }}</p>
       <p>Total Price: ₹{{ getTotalPrice() }}</p>
+      <hr />
+      <form #orderForm="ngForm" (ngSubmit)="placeOrder(orderForm)" novalidate>
+        <div class="form-group">
+          <label for="patient_id">Patient Name</label>
+          <input
+            type="text"
+            id="patient_id"
+            ngModel
+            name="patient_id"
+            class="form-control"
+            required
+            #patient_id="ngModel"
+          />
+          <div
+            *ngIf="patient_id.invalid && patient_id.touched"
+            class="text-danger"
+          >
+            Patient Name is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="mobile">Mobile</label>
+          <input
+            type="text"
+            id="mobile"
+            ngModel
+            name="mobile"
+            class="form-control"
+            required
+            #mobile="ngModel"
+          />
+          <div *ngIf="mobile.invalid && mobile.touched" class="text-danger">
+            Mobile is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input
+            type="text"
+            id="address"
+            ngModel
+            name="address"
+            class="form-control"
+            required
+            #address="ngModel"
+          />
+          <div *ngIf="address.invalid && address.touched" class="text-danger">
+            Address is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="city">City</label>
+          <input
+            type="text"
+            id="city"
+            ngModel
+            name="city"
+            class="form-control"
+            required
+            #city="ngModel"
+          />
+          <div *ngIf="city.invalid && city.touched" class="text-danger">
+            City is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="state">State</label>
+          <input
+            type="text"
+            id="state"
+            ngModel
+            name="state"
+            class="form-control"
+            required
+            #state="ngModel"
+          />
+          <div *ngIf="state.invalid && state.touched" class="text-danger">
+            State is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="zipcode">Zipcode</label>
+          <input
+            type="text"
+            id="zipcode"
+            ngModel
+            name="zipcode"
+            class="form-control"
+            required
+            #zipcode="ngModel"
+          />
+          <div *ngIf="zipcode.invalid && zipcode.touched" class="text-danger">
+            Zipcode is required.
+          </div>
+        </div>
+        <button
+          class="btn btn-checkout"
+          type="submit"
+          [disabled]="orderForm.invalid"
+        >
+          Place Order
+        </button>
+      </form>
     </div>
   </div>
 </div>

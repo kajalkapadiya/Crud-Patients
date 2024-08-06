@@ -111,68 +111,51 @@
       "id": 9
     }
   ],
-  "cart": [
-    {
-      "dosage_type": "",
-      "medicine_name": "Dolo Tablet (15 Tablet X Strip)",
-      "content": "Losartan Potassium (25mg)",
-      "mrp": "100",
-      "price": "100",
-      "medicine_id": "UAKO7X6D0TbU2WxjVunkdQ==",
-      "packing_size": "1 Strip of 15 Tablet",
-      "size": "15",
-      "manufacturer_name": "Micro Labs Ltd",
-      "medicine_type": "",
-      "gst_percentage": "0",
-      "available_for_patient": "no",
-      "discontinued": "no",
-      "quantity": 2,
-      "id": 3
-    },
-    {
-      "dosage_type": "",
-      "medicine_name": "Dolo Injection (12 Tablet)",
-      "content": "Losartan Potassium (120ml)",
-      "mrp": "25",
-      "price": "25",
-      "medicine_id": "DfeYqapVG1pmtceBJxQJ7Q==",
-      "packing_size": "1 Strip of  12 Tablet",
-      "size": "12",
-      "manufacturer_name": "Astra Unique Prohealth Pvt Ltd",
-      "medicine_type": "drug",
-      "gst_percentage": "0",
-      "available_for_patient": "no",
-      "discontinued": "no",
-      "quantity": 1,
-      "id": 4
-    },
-    {
-      "dosage_type": "",
-      "medicine_name": "Dolo 650 Tablet (15 Tablet X Strip)",
-      "content": "Losartan Potassium (25mg)",
-      "mrp": "179",
-      "price": "179",
-      "medicine_id": "kgu2Bgfriw/cEKvoyW/GdA==",
-      "packing_size": "1 Strip of 15 Tablet",
-      "size": "15",
-      "manufacturer_name": "",
-      "medicine_type": "otc",
-      "gst_percentage": "18",
-      "available_for_patient": "no",
-      "discontinued": "no",
-      "quantity": 1,
-      "id": 6
-    }
-  ],
   "users": [
     {
-      "id": 1,
       "email": "test@example.com",
-      "password": "password123"
+      "password": "1234567",
+      "order": [
+        {
+          "patient_id": "kajal",
+          "items": "[{\"medicine_id\":\"4nI2ShnNiJZdb7Qlk5D7Ug==\",\"quantity\":2},{\"medicine_id\":\"DfeYqapVG1pmtceBJxQJ7Q==\",\"quantity\":1}]",
+          "totalQuantity": 3,
+          "totalPrice": 265,
+          "apikey": "",
+          "address": "103, shantikunj society",
+          "address_line2": "",
+          "city": "surat",
+          "state": "gujrat",
+          "zipcode": "395009",
+          "mobile": "09724338640",
+          "patient_name": ""
+        }
+      ],
+      "cart": [],
+      "id": 1
     },
     {
-      "email": "abc@gmail.com",
-      "password": "passwordabc",
+      "email": "xyz@gmail.com",
+      "password": "1234567",
+      "order": [],
+      "cart": [
+        {
+          "dosage_type": "",
+          "medicine_name": "Dolo Tablet (15 Tablet X Strip)",
+          "content": "Losartan Potassium (25mg)",
+          "mrp": "100",
+          "price": "100",
+          "medicine_id": "UAKO7X6D0TbU2WxjVunkdQ==",
+          "packing_size": "1 Strip of 15 Tablet",
+          "size": "15",
+          "manufacturer_name": "Micro Labs Ltd",
+          "medicine_type": "",
+          "gst_percentage": "0",
+          "available_for_patient": "no",
+          "discontinued": "no",
+          "quantity": 2
+        }
+      ],
       "id": 2
     }
   ]

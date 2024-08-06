@@ -340,6 +340,11 @@
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
+.btn-checkout {
+  display: flex;
+  justify-content: flex-end;
+}
+
 /* .btn-checkout {
   color: #044c9d;
   border-bottom: 1px solid #044c9d;
@@ -378,4 +383,16 @@
 h2,
 h3 {
   color: #044c9d;
+}
+
+.shopping-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.shopping-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
 }

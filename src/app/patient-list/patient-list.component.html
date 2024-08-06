@@ -111,118 +111,135 @@
     class="d-flex justify-content-center mt-4"
   ></pagination-controls>
 
-  <div *ngIf="editPatient" class="mt-4">
-    <h2 class="text-primary">Edit Patient</h2>
-    <form (ngSubmit)="onUpdate()" #editForm="ngForm">
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="name"
-          [(ngModel)]="editPatient.name"
-          name="name"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="age">Age:</label>
-        <input
-          type="number"
-          class="form-control"
-          id="age"
-          [(ngModel)]="editPatient.age"
-          name="age"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="address">Address:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="address"
-          [(ngModel)]="editPatient.address"
-          name="address"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="zipcode">Zipcode:</label>
-        <input
-          type="number"
-          class="form-control"
-          id="zipcode"
-          [(ngModel)]="editPatient.zipcode"
-          name="zipcode"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="mobile">Mobile:</label>
-        <input
-          type="number"
-          class="form-control"
-          id="mobile"
-          [(ngModel)]="editPatient.mobile"
-          name="mobile"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="first_name">First Name:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="first_name"
-          [(ngModel)]="editPatient.first_name"
-          name="first_name"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="last_name">Last Name:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="last_name"
-          [(ngModel)]="editPatient.last_name"
-        />
-      </div>
-      <div class="form-group">
-        <label for="dob">Date of Birth:</label>
-        <input
-          type="date"
-          class="form-control"
-          id="dob"
-          [(ngModel)]="editPatient.dob"
-          name="dob"
-        />
-      </div>
-      <div class="form-group">
-        <label for="gender">Gender:</label>
-        <select
-          class="form-control"
-          id="gender"
-          [(ngModel)]="editPatient.gender"
-          name="gender"
-        >
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="blood_group">Blood Group:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="blood_group"
-          [(ngModel)]="editPatient.blood_group"
-          name="blood_group"
-        />
-      </div>
-      <button type="submit" class="btn btn-success mt-2">Update Patient</button>
-    </form>
-  </div>
+  <ng-template #editPatientModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit Patient</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closeModel()"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="onUpdate()" #editForm="ngForm">
+        <div *ngIf="editPatient" class="mt-4">
+          <h2 class="text-primary">Edit Patient</h2>
+          <form (ngSubmit)="onUpdate()" #editForm="ngForm">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                [(ngModel)]="editPatient.name"
+                name="name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="age">Age:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="age"
+                [(ngModel)]="editPatient.age"
+                name="age"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="address">Address:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                [(ngModel)]="editPatient.address"
+                name="address"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="zipcode">Zipcode:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="zipcode"
+                [(ngModel)]="editPatient.zipcode"
+                name="zipcode"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="mobile">Mobile:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="mobile"
+                [(ngModel)]="editPatient.mobile"
+                name="mobile"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="first_name">First Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="first_name"
+                [(ngModel)]="editPatient.first_name"
+                name="first_name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="last_name">Last Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="last_name"
+                [(ngModel)]="editPatient.last_name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="dob">Date of Birth:</label>
+              <input
+                type="date"
+                class="form-control"
+                id="dob"
+                [(ngModel)]="editPatient.dob"
+                name="dob"
+              />
+            </div>
+            <div class="form-group">
+              <label for="gender">Gender:</label>
+              <select
+                class="form-control"
+                id="gender"
+                [(ngModel)]="editPatient.gender"
+                name="gender"
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="blood_group">Blood Group:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="blood_group"
+                [(ngModel)]="editPatient.blood_group"
+                name="blood_group"
+              />
+            </div>
+            <button type="submit" class="btn btn-success mt-2">
+              Update Patient
+            </button>
+          </form>
+        </div>
+      </form>
+    </div>
+  </ng-template>
 </div>

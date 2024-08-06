@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
 import { HttpClient } from '@angular/common/http';
 import { CheckoutService } from '../checkout.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
@@ -14,6 +15,7 @@ export class CartComponent implements OnInit {
   isAvailable: boolean = true;
   unavailableItems: any[] = [];
   apikey = '';
+  successMessage: string | null = null;
 
   constructor(
     private cartService: CartService,
@@ -27,10 +29,17 @@ export class CartComponent implements OnInit {
   }
 
   loadCart(): void {
-    this.cartService.getCart().subscribe(
-      (items) => {
-        this.cartItems = items;
-        console.log(this.cartItems);
+    const email = this.cartService.getLoggedInUserEmail();
+    if (!email) {
+      console.error('User not logged in');
+      return;
+    }
+
+    this.cartService.getUserByEmail(email).subscribe(
+      (user) => {
+        if (user) {
+          this.cartItems = user.cart || [];
+        }
       },
       (error) => {
         console.error('Error loading cart:', error);
@@ -61,7 +70,7 @@ export class CartComponent implements OnInit {
   }
 
   removeFromCart(product: any): void {
-    this.cartService.deleteFromCart(product).subscribe(
+    this.cartService.deleteFromCart(product.medicine_id).subscribe(
       () => {
         this.loadCart();
       },
@@ -96,43 +105,53 @@ export class CartComponent implements OnInit {
     );
   }
 
-  checkAvailability(): void {
-    const medicineIds = this.cartItems.map((item) => item.id);
-    this.cartService.checkAvailability(medicineIds, this.fullAddress).subscribe(
-      (response: any) => {
-        // Assuming the response contains an array of available item IDs
-        const availableIds = response.available_ids;
-        this.isAvailable = this.cartItems.every((item) =>
-          availableIds.includes(item.id)
-        );
-        this.unavailableItems = this.cartItems.filter(
-          (item) => !availableIds.includes(item.id)
-        );
+  placeOrder(form: NgForm): void {
+    if (!form.valid) {
+      return;
+    }
+
+    const totalQuantity = this.getTotalItems();
+    const totalPrice = this.getTotalPrice();
+
+    const orderData = {
+      patient_id: form.value.patient_id,
+      items: JSON.stringify(
+        this.cartItems.map((item) => ({
+          medicine_id: item.medicine_id,
+          quantity: item.quantity,
+        }))
+      ),
+      totalQuantity,
+      totalPrice,
+      apikey: this.apikey,
+      address: form.value.address,
+      address_line2: form.value.address_line2 || '',
+      city: form.value.city,
+      state: form.value.state,
+      zipcode: form.value.zipcode,
+      mobile: form.value.mobile,
+      patient_name: form.value.patient_name || '',
+      full_address: form.value.full_address,
+    };
+
+    this.cartService.placeOrder(orderData).subscribe(
+      (response) => {
+        this.successMessage =
+          'Order placed successfully. <a href="/app-products" class="shopping-link">Continue shopping</a>';
+
+        setTimeout(() => {
+          this.cartService.clearCart().subscribe(
+            () => {
+              this.cartItems = [];
+            },
+            (error) => {}
+          );
+        }, 5000);
       },
       (error) => {
-        console.error('Error checking availability:', error);
-        this.isAvailable = false;
+        console.error('Order placement failed', error);
+        alert('Order placement failed');
       }
     );
-  }
-
-  placeOrder(): void {
-    const medicineIds = this.cartItems.map((item) => item.medicine_id); // Adjust according to your actual field name
-    const latitude = 12.9716; // Replace with actual latitude
-    const longitude = 77.5946; // Replace with actual longitude
-    const fullAddress = '560008'; // Replace with actual address if needed
-
-    this.checkoutService
-      .checkout(medicineIds, latitude, longitude, fullAddress)
-      .subscribe(
-        (response) => {
-          console.log('Checkout response:', response);
-          // Handle the response, update UI, etc.
-        },
-        (error) => {
-          console.error('Checkout error:', error);
-          // Handle error, show notification, etc.
-        }
-      );
   }
 }

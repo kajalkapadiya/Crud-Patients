@@ -133,3 +133,31 @@ h2 {
   animation: shake 0.5s;
   animation-iteration-count: 1;
 }
+
+.product-details-card {
+  position: absolute;
+  z-index: 10;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  max-width: 300px;
+  margin-top: -10px;
+}
+
+.product-details-card .card {
+  padding: 10px;
+}
+
+.in-stock {
+  color: green;
+}
+
+.out-of-stock {
+  color: red;
+}
+
+tr.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

@@ -17,7 +17,6 @@ export class PatientService {
   }
 
   addPatient(patient: Patient): Observable<Patient> {
-    console.log('api_url', this.apiUrl);
     return this.http.post<Patient>(`${this.apiUrl}`, patient);
   }
 

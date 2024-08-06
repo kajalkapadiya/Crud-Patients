@@ -31,7 +31,13 @@
         placeholder="Age"
         [(ngModel)]="patient.age"
         name="age"
+        min="0"
+        max="100"
+        #age="ngModel"
       />
+      <div *ngIf="age.invalid && age.touched" class="error">
+        Age must be between 0 and 120.
+      </div>
     </div>
   </div>
 
@@ -45,7 +51,12 @@
       [(ngModel)]="patient.address"
       name="address"
       required
+      maxlength="255"
+      #address="ngModel"
     />
+    <div *ngIf="address.invalid && address.touched" class="error">
+      Address is required and must be less than 255 characters.
+    </div>
   </div>
 
   <div class="form-row">
@@ -59,7 +70,12 @@
         [(ngModel)]="patient.zipcode"
         name="zipcode"
         required
+        maxlength="6"
+        #zipcode="ngModel"
       />
+      <div *ngIf="zipcode.invalid && zipcode.touched" class="error">
+        Zipcode is required and must be less than 7 digits.
+      </div>
     </div>
     <div class="form-group col-md-6">
       <label for="mobile">Mobile</label>
@@ -72,9 +88,11 @@
         name="mobile"
         #mobile="ngModel"
         required
+        pattern="^[0-9]{10}$"
+        maxlength="10"
       />
       <div *ngIf="mobile.invalid && mobile.touched" class="error">
-        Mobile number is required.
+        Mobile number must be exactly 10 digits.
       </div>
     </div>
   </div>
@@ -90,7 +108,12 @@
         [(ngModel)]="patient.first_name"
         name="first_name"
         required
+        maxlength="50"
+        #first_name="ngModel"
       />
+      <div *ngIf="first_name.invalid && first_name.touched" class="error">
+        First Name is required and must be less than 51 characters.
+      </div>
     </div>
     <div class="form-group col-md-6">
       <label for="last_name">Last Name</label>
@@ -101,7 +124,12 @@
         placeholder="Last Name"
         [(ngModel)]="patient.last_name"
         name="last_name"
+        maxlength="50"
+        #last_name="ngModel"
       />
+      <div *ngIf="last_name.invalid && last_name.touched" class="error">
+        Last Name must be less than 51 characters.
+      </div>
     </div>
   </div>
 
@@ -141,182 +169,15 @@
       placeholder="Blood Group"
       [(ngModel)]="patient.blood_group"
       name="blood_group"
+      #blood_group="ngModel"
+      maxlength="3"
     />
+    <div *ngIf="blood_group.invalid && blood_group.touched" class="error">
+      Blood Group must be less than 3 characters.
+    </div>
   </div>
 
   <button type="submit" class="btn btn-primary" [disabled]="!patientForm.valid">
     Add Patient
   </button>
 </form>
-
-<!-- <form
-  (ngSubmit)="onSubmit()"
-  #patientForm="ngForm"
-  class="patient-form container mt-4"
-  novalidate
->
-  <div class="row mb-3">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input
-          type="text"
-          id="name"
-          [(ngModel)]="patient.name"
-          name="name"
-          #name="ngModel"
-          class="form-control"
-          required
-        />
-        <div *ngIf="name.invalid && name.touched" class="invalid-feedback">
-          Name is required.
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="age">Age:</label>
-        <input
-          type="number"
-          id="age"
-          [(ngModel)]="patient.age"
-          name="age"
-          class="form-control"
-        />
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-3">
-    <div class="col-md-12">
-      <div class="form-group">
-        <label for="address">Address:</label>
-        <input
-          type="text"
-          id="address"
-          [(ngModel)]="patient.address"
-          name="address"
-          class="form-control"
-          required
-        />
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-3">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="zipcode">Zipcode:</label>
-        <input
-          type="number"
-          id="zipcode"
-          [(ngModel)]="patient.zipcode"
-          name="zipcode"
-          class="form-control"
-          required
-        />
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="mobile">Mobile:</label>
-        <input
-          type="number"
-          id="mobile"
-          [(ngModel)]="patient.mobile"
-          name="mobile"
-          #mobile="ngModel"
-          class="form-control"
-          required
-        />
-        <div *ngIf="mobile.invalid && mobile.touched" class="invalid-feedback">
-          Mobile number is required.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-3">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="first_name">First Name:</label>
-        <input
-          type="text"
-          id="first_name"
-          [(ngModel)]="patient.first_name"
-          name="first_name"
-          class="form-control"
-          required
-        />
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="last_name">Last Name:</label>
-        <input
-          type="text"
-          id="last_name"
-          [(ngModel)]="patient.last_name"
-          name="last_name"
-          class="form-control"
-        />
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-3">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="dob">Date of Birth:</label>
-        <input
-          type="date"
-          id="dob"
-          [(ngModel)]="patient.dob"
-          name="dob"
-          class="form-control"
-        />
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="gender">Gender:</label>
-        <select
-          id="gender"
-          [(ngModel)]="patient.gender"
-          name="gender"
-          class="form-control"
-        >
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4">
-    <div class="col-md-12">
-      <div class="form-group">
-        <label for="blood_group">Blood Group:</label>
-        <input
-          type="text"
-          id="blood_group"
-          [(ngModel)]="patient.blood_group"
-          name="blood_group"
-          class="form-control"
-          [ngModel]="patient.blood_group | titlecase"
-        />
-      </div>
-    </div>
-  </div>
-
-  <div class="text-center">
-    <button
-      type="submit"
-      [disabled]="!patientForm.valid"
-      class="btn btn-primary btn-lg"
-    >
-      Add Patient
-    </button>
-  </div>
-</form> -->

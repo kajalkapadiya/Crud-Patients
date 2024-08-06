@@ -7,7 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
   private apiUrlForDetails =
-    'https://api.evitalrx.in/v1/fulfillment/medicines/view';
+    'https://dev-api.evitalrx.in/v1/fulfillment/medicines/view';
+  private availabilityApiUrl =
+    'https://dev-api.evitalrx.in/v1/fulfillment/orders/checkout';
   private apiUrl =
     'https://dev-api.evitalrx.in/v1/fulfillment/medicines/search';
   private apiKey = 'wFIMP75eG1sQEh8vVAdXykgzF4mLhDw3';
@@ -17,6 +19,15 @@ export class ProductService {
   searchProducts(searchString: string): Observable<any> {
     const body = { searchstring: searchString, apikey: this.apiKey };
     return this.http.post<any>(this.apiUrl, body);
+  }
+
+  checkAvailability(medicineIds: string[]): Observable<any> {
+    const body = {
+      apikey: this.apiKey,
+      medicine_ids: JSON.stringify(medicineIds),
+      full_address: '560008',
+    };
+    return this.http.post<any>(this.availabilityApiUrl, body);
   }
 
   getProductDetails(

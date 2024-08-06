@@ -31,18 +31,39 @@ export class ProductComponent {
     this.productService.searchProducts(this.searchTerm).subscribe(
       (response) => {
         if (response.status_code === '1') {
-          console.log(response.data);
           this.searchPerformed = true;
           this.products = response.data.result;
+          const medicineIds = this.products.map(
+            (product: any) => product.medicine_id
+          );
+
+          this.productService.checkAvailability(medicineIds).subscribe(
+            (availabilityResponse) => {
+              if (availabilityResponse.status_code === '1') {
+                this.products.forEach((product) => {
+                  const availability =
+                    availabilityResponse.data.availability.find(
+                      (item: any) => item.medicine_id === product.medicine_id
+                    );
+                  product.in_stock = availability
+                    ? availability.in_stock
+                    : 'no';
+                });
+              } else {
+                console.error('Error:', availabilityResponse.status_message);
+              }
+            },
+            (error) => {
+              console.error('Error checking availability:', error);
+            }
+          );
         } else {
           console.error('Error:', response.status_message);
-          this.products = [];
           this.searchPerformed = false;
         }
       },
       (error) => {
         console.error('Error fetching products:', error);
-        this.products = [];
       }
     );
   }
@@ -69,13 +90,27 @@ export class ProductComponent {
     this.route.navigate(['/app-cart']);
   }
 
+  // fetchProductDetails(medicineId: string) {
+  //   this.productService.getProductDetails(medicineId).subscribe(
+  //     (response) => {
+  //       if (response.status_code === '1') {
+  //         this.selectedProductDetails = response.data; // Store the details
+  //       } else {
+  //         console.error('Error:', response.status_message);
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching product details:', error);
+  //     }
+  //   );
+  // }
+
   fetchProductDetails(medicineId: string) {
-    console.log(medicineId);
     this.productService.getProductDetails(medicineId).subscribe(
       (response) => {
         if (response.status_code === '1') {
-          console.log(response.data);
-          this.selectedProductDetails = response.data; // Store the details
+          this.selectedProductDetails = response.data;
+          this.openModal();
         } else {
           console.error('Error:', response.status_message);
         }
@@ -84,6 +119,22 @@ export class ProductComponent {
         console.error('Error fetching product details:', error);
       }
     );
+  }
+
+  openModal() {
+    const modalElement = document.getElementById('productDetailsModal');
+    if (modalElement) {
+      (modalElement as any).style.display = 'block';
+      modalElement.classList.add('show');
+    }
+  }
+
+  closeModal() {
+    const modalElement = document.getElementById('productDetailsModal');
+    if (modalElement) {
+      (modalElement as any).style.display = 'none';
+      modalElement.classList.remove('show');
+    }
   }
 
   fetchProductDetailsByIds(medicineIds: string[]) {
@@ -95,7 +146,6 @@ export class ProductComponent {
     this.productService.getProductDetails(undefined, medicineIds).subscribe(
       (response) => {
         if (response.status_code === '1') {
-          console.log(response.data);
           this.selectedProductDetails = response.data; // Store the details
         } else {
           console.error('Error:', response.status_message);
