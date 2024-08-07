@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, switchMap, map, of, catchError, throwError } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
   private apiUrl = 'http://localhost:3000/users';
-  private stockCheckUrl =
-    'https://api.evitalrx.in/v1/fulfillment/orders/checkout';
+  private patientsListUrl = 'http://localhost:3000/patients';
+  private placeOrderUrl =
+    'https://dev-api.evitalrx.in/v1/fulfillment/orders/place_order';
   private apiKey = 'wFIMP75eG1sQEh8vVAdXykgzF4mLhDw3';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar) {}
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, { duration: 3000 });
+  }
 
   public getLoggedInUserEmail(): string | null {
     return localStorage.getItem('user_email');
@@ -65,7 +70,10 @@ export class CartService {
         return this.updateUserCart(userId, cart);
       }),
       catchError((error) => {
-        console.error('Error updating cart:', error);
+        this._snackBar.open('Error updating cart:', 'close', {
+          duration: 3000,
+        });
+
         return of(null);
       })
     );
@@ -97,7 +105,10 @@ export class CartService {
         }
       }),
       catchError((error) => {
-        console.error('Error updating cart:', error);
+        this._snackBar.open('Error updating cart:', 'close', {
+          duration: 3000,
+        });
+
         return of(null);
       })
     );
@@ -134,7 +145,10 @@ export class CartService {
         }
       }),
       catchError((error) => {
-        console.error('Error removing from cart:', error);
+        this._snackBar.open('Error removing from cart:', 'close', {
+          duration: 3000,
+        });
+
         return of(null);
       })
     );
@@ -157,7 +171,9 @@ export class CartService {
       }),
       map(() => ({ message: 'Cart cleared' })),
       catchError((error) => {
-        console.error('Error clearing cart:', error);
+        this._snackBar.open('Error clearing cart:', 'close', {
+          duration: 3000,
+        });
         return of({ message: 'Failed to clear cart' });
       })
     );
@@ -166,14 +182,13 @@ export class CartService {
   deleteFromCart(productId: string): Observable<any> {
     const email = this.getLoggedInUserEmail();
     if (!email) {
-      console.error('User not logged in');
-      return throwError('User not logged in');
+      this._snackBar.open('User not loggeed in!', 'close', { duration: 3000 });
     }
 
     return this.http.get<any[]>(`${this.apiUrl}?email=${email}`).pipe(
       switchMap((users) => {
         if (users.length === 0) {
-          return throwError('User not found');
+          this._snackBar.open('User not found', 'close', { duration: 3000 });
         }
 
         const user = users[0];
@@ -187,8 +202,10 @@ export class CartService {
         });
       }),
       catchError((error) => {
-        console.error('Error deleting product from cart:', error);
-        return throwError(error);
+        this._snackBar.open('Error deleting product from cart:', 'close', {
+          duration: 3000,
+        });
+        return of(error);
       })
     );
   }
@@ -196,26 +213,59 @@ export class CartService {
   placeOrder(orderData: any): Observable<any> {
     const email = this.getLoggedInUserEmail();
     if (!email) {
-      console.error('User not logged in');
-      return throwError('User not logged in');
+      this._snackBar.open('User not logged in', 'close', { duration: 3000 });
+      return of('User not logged in');
     }
 
-    return this.http.get<any[]>(`${this.apiUrl}?email=${email}`).pipe(
-      switchMap((users) => {
-        if (users.length === 0) {
-          return throwError('User not found');
+    return this.http.get<any[]>(`${this.patientsListUrl}?email=${email}`).pipe(
+      map((patients) => {
+        if (patients.length === 0) {
+          throw new Error('User not found');
+        }
+        return patients[0];
+      }),
+      switchMap((patient) => {
+        if (!patient) {
+          throw new Error('User is not a patient');
         }
 
-        const user = users[0];
-        const updatedOrders = user.orders
-          ? [...user.orders, orderData]
-          : [orderData];
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.apiKey}`,
+        });
 
-        return this.updateUserOrders(user.id, updatedOrders);
+        // Construct request body
+        const requestBody = {
+          items: JSON.stringify(orderData.items), // Only stringify here
+          apikey: orderData.apikey,
+          delivery_type: 'pickup', // Update based on actual form data
+          address: orderData.address,
+          address_line2: orderData.address_line2,
+          city: orderData.city,
+          state: orderData.state,
+          zipcode: orderData.zipcode,
+          mobile: orderData.mobile,
+          patient_name: orderData.patient_name,
+          full_address: orderData.full_address,
+        };
+
+        return this.http
+          .post<any>(this.placeOrderUrl, requestBody, { headers })
+          .pipe(
+            catchError((error) => {
+              this._snackBar.open('Error placing order:', 'close', {
+                duration: 3000,
+              });
+
+              return of(error);
+            })
+          );
       }),
       catchError((error) => {
-        console.error('Error placing order:', error);
-        return throwError(error);
+        this._snackBar.open('Error while place the order', 'close', {
+          duration: 3000,
+        });
+        return of(error);
       })
     );
   }

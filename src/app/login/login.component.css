@@ -11,17 +11,17 @@ html {
   background: url("/assets/medical-background.jpg") no-repeat center center
     fixed;
   background-size: cover;
+  overflow: hidden;
   justify-content: space-between;
   align-items: stretch; /* Ensure both sides stretch to equal height */
   height: 100vh;
-  padding: 20px;
+  padding: 0px;
   max-width: 100%;
   margin: 0;
 }
 
 .left-side,
 .right-side {
-  padding: 40px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   border: 2px solid #e0e0e0;
   border-radius: 10px;
@@ -33,6 +33,7 @@ html {
 
 .left-side {
   flex: 2;
+  padding: 40px;
   margin: 40px 0 40px 0;
   position: relative;
   background-color: white;
@@ -54,7 +55,7 @@ html {
 }
 
 .left-side::before {
-  /* content: url("/assets/medAnimated.gif"); */
+  content: url("/assets/medAnimated.gif");
   position: absolute;
   bottom: 5px;
   left: 0px;
@@ -75,9 +76,10 @@ html {
 
 .right-side {
   flex: 1;
-  background-color: transparent;
+  /* background: linear-gradient(to bottom right, white 50%, transparent 50%); */
   backdrop-filter: blur(10px); /* Glass effect */
   margin: 40px 90px 40px 5px;
+  padding: 20px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -104,17 +106,19 @@ html {
 
 .card-body {
   padding: 0;
+  display: flex;
+  align-items: center;
 }
 
 .form-group {
   position: relative;
-  margin-bottom: 20px;
+  padding: 20px;
   width: 100%;
 }
 
 .form-group input {
   width: 100%;
-  padding: 15px;
+  padding: 0px 70px 0 70px;
   font-size: 18px;
   border-radius: 10px;
   border: none;
@@ -174,4 +178,32 @@ html {
 .btn-alt:hover {
   background-color: #005f55;
   transform: scale(1.02);
+}
+
+.btns {
+  display: flex;
+  flex-direction: column;
+}
+
+.btns button {
+  padding: 15px 0 15px 0;
+  font-size: 20px;
+}
+
+.form-group label.login_email,
+.form-group label.login_pass {
+  color: #044c9d; /* Ensure the color is applied */
+}
+
+.btn-login {
+  background-color: #044c9d;
+  color: white;
+}
+
+p {
+  color: #044c9d;
+  font-size: 16px;
+  display: flex;
+  /* text-align: start; */
+  justify-content: center;
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../cart.service';
+import { CartService } from '../services/cart.service';
 import { HttpClient } from '@angular/common/http';
-import { CheckoutService } from '../checkout.service';
+import { CheckoutService } from '../services/checkout.service';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cart',
@@ -14,24 +15,25 @@ export class CartComponent implements OnInit {
   fullAddress: string = '';
   isAvailable: boolean = true;
   unavailableItems: any[] = [];
-  apikey = '';
+  apikey = 'wFIMP75eG1sQEh8vVAdXykgzF4mLhDw3';
   successMessage: string | null = null;
 
   constructor(
     private cartService: CartService,
     private checkoutService: CheckoutService,
-    private http: HttpClient
+    private http: HttpClient,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
     this.loadCart();
-    // this.checkAvailability();
   }
 
   loadCart(): void {
     const email = this.cartService.getLoggedInUserEmail();
     if (!email) {
-      console.error('User not logged in');
+      this._snackBar.open('User not logged in', 'action', { duration: 3000 });
+
       return;
     }
 
@@ -42,7 +44,7 @@ export class CartComponent implements OnInit {
         }
       },
       (error) => {
-        console.error('Error loading cart:', error);
+        this._snackBar.open('Error loading cart:', 'close', { duration: 3000 });
       }
     );
   }
@@ -53,7 +55,9 @@ export class CartComponent implements OnInit {
         this.loadCart();
       },
       (error) => {
-        console.error('Error increasing quantity:', error);
+        this._snackBar.open('Error increasing quantity', 'close', {
+          duration: 3000,
+        });
       }
     );
   }
@@ -64,7 +68,9 @@ export class CartComponent implements OnInit {
         this.loadCart();
       },
       (error) => {
-        console.error('Error decreasing quantity:', error);
+        this._snackBar.open('Error decreasing quantity', 'close', {
+          duration: 3000,
+        });
       }
     );
   }
@@ -75,7 +81,9 @@ export class CartComponent implements OnInit {
         this.loadCart();
       },
       (error) => {
-        console.error('Error removing from cart:', error);
+        this._snackBar.open('Error removing from cart', 'close', {
+          duration: 3000,
+        });
       }
     );
   }
@@ -86,7 +94,7 @@ export class CartComponent implements OnInit {
         this.cartItems = [];
       },
       (error) => {
-        console.error('Error clearing cart:', error);
+        this._snackBar.open('Error clearing cart', 'close', { duration: 3000 });
       }
     );
   }
@@ -112,15 +120,14 @@ export class CartComponent implements OnInit {
 
     const totalQuantity = this.getTotalItems();
     const totalPrice = this.getTotalPrice();
+    const patient_email = localStorage.getItem('email');
 
     const orderData = {
-      patient_id: form.value.patient_id,
-      items: JSON.stringify(
-        this.cartItems.map((item) => ({
-          medicine_id: item.medicine_id,
-          quantity: item.quantity,
-        }))
-      ),
+      patient_name: form.value.patient_id,
+      items: this.cartItems.map((item) => ({
+        medicine_id: item.medicine_id,
+        quantity: item.quantity,
+      })),
       totalQuantity,
       totalPrice,
       apikey: this.apikey,
@@ -130,7 +137,6 @@ export class CartComponent implements OnInit {
       state: form.value.state,
       zipcode: form.value.zipcode,
       mobile: form.value.mobile,
-      patient_name: form.value.patient_name || '',
       full_address: form.value.full_address,
     };
 
@@ -149,8 +155,9 @@ export class CartComponent implements OnInit {
         }, 5000);
       },
       (error) => {
-        console.error('Order placement failed', error);
-        alert('Order placement failed');
+        this._snackBar.open('Order placement failed', 'close', {
+          duration: 3000,
+        });
       }
     );
   }

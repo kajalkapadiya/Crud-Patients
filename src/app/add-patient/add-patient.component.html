@@ -177,6 +177,42 @@
     </div>
   </div>
 
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      placeholder="Email"
+      [(ngModel)]="patient.email"
+      name="email"
+      required
+      email
+      #email="ngModel"
+    />
+    <div *ngIf="email.invalid && email.touched" class="error">
+      Valid email is required.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      placeholder="Password"
+      [(ngModel)]="patient.password"
+      name="password"
+      required
+      minlength="6"
+      #password="ngModel"
+    />
+    <div *ngIf="password.invalid && password.touched" class="error">
+      Password is required and must be at least 6 characters long.
+    </div>
+  </div>
+
   <button type="submit" class="btn btn-primary" [disabled]="!patientForm.valid">
     Add Patient
   </button>

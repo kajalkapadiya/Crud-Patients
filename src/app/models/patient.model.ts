@@ -1,9 +1,8 @@
 export interface Patient {
-  id?: number;
+  id?: string;
   name: string;
   age: number;
   address: string;
-  // apikey: string;
   zipcode: number;
   mobile: number;
   first_name: string;
@@ -11,5 +10,7 @@ export interface Patient {
   dob?: string;
   gender?: string;
   blood_group?: string;
+  email: string;
+  password: string;
   selected?: boolean;
 }

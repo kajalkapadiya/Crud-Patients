@@ -8,7 +8,7 @@ import { Patient } from '../models/patient.model';
 })
 export class PatientService {
   private apiUrl = 'http://localhost:3000/patients';
-  // private endPoint = 'wFIMP75eG1sQEh8vVAdXykgzF4mLhDw3';
+  private sampleUrl = 'https://dev-api.evitalrx.in/v1/fulfillment/patients/add';
 
   constructor(private http: HttpClient) {}
 
@@ -24,7 +24,7 @@ export class PatientService {
     return this.http.put<Patient>(`${this.apiUrl}/${patient.id}`, patient);
   }
 
-  deletePatient(id: number): Observable<void> {
+  deletePatient(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

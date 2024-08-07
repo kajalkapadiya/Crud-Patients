@@ -8,7 +8,6 @@ import { AddPatientComponent } from './add-patient/add-patient.component';
 
 import { FormsModule } from '@angular/forms';
 import { PatientListComponent } from './patient-list/patient-list.component';
-import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -16,19 +15,21 @@ import { ProductComponent } from './products/products.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CartComponent } from './cart/cart.component';
 import { LoginComponent } from './login/login.component';
-import { BackgroundComponent } from './background/background.component';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddPatientComponent,
     PatientListComponent,
-    FooterComponent,
     HeaderComponent,
     ProductComponent,
     CartComponent,
     LoginComponent,
-    BackgroundComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +40,10 @@ import { BackgroundComponent } from './background/background.component';
     NgbDatepickerModule,
     NgxPaginationModule,
     BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

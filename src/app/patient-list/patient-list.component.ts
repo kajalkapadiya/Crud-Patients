@@ -3,6 +3,7 @@ import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/models/patient.model';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-patient-list',
@@ -24,7 +25,8 @@ export class PatientListComponent implements OnInit {
   constructor(
     private patientService: PatientService,
     private modalService: NgbModal,
-    private route: Router
+    private route: Router,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class PatientListComponent implements OnInit {
         }));
       },
       (error) => {
-        console.error('Error fetching patients:', error);
+        this._snackBar.open('message', 'action', { duration: 3000 });
       }
     );
   }
@@ -57,26 +59,32 @@ export class PatientListComponent implements OnInit {
           this.fetchPatients();
           this.editPatient = null;
         },
-        (error) => {
-          console.error('Error updating patient:', error);
+        () => {
+          this._snackBar.open('Error updating patients', 'action', {
+            duration: 3000,
+          });
         }
       );
     }
     this.closeModel();
   }
 
-  onDelete(id?: number): void {
+  onDelete(id?: string): void {
     if (id !== undefined) {
       this.patientService.deletePatient(id).subscribe(
         () => {
           this.fetchPatients();
         },
         (error) => {
-          console.error('Error deleting patient:', error);
+          this._snackBar.open('Error deleting patient', 'action', {
+            duration: 3000,
+          });
         }
       );
     } else {
-      console.error('Patient ID is undefined');
+      this._snackBar.open('Patient ID is undefined', 'action', {
+        duration: 3000,
+      });
     }
   }
 

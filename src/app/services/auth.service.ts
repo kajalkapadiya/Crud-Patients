@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, forkJoin, switchMap } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,11 @@ export class AuthService {
   private isAuthenticated = new BehaviorSubject<boolean>(false);
   authStatus = this.isAuthenticated.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private _snackBar: MatSnackBar
+  ) {}
 
   login(email: string, password: string) {
     this.http
@@ -27,11 +32,13 @@ export class AuthService {
             localStorage.setItem('user_email', email);
             this.router.navigate(['/app-products']);
           } else {
-            alert('Invalid email or password');
+            this._snackBar.open('Invalid email or password', 'close', {
+              duration: 3000,
+            });
           }
         },
         (error) => {
-          console.error('Login error', error);
+          this._snackBar.open('Login Error', 'close', { duration: 3000 });
         }
       );
   }
@@ -47,7 +54,7 @@ export class AuthService {
         this.router.navigate(['/app-products']);
       },
       (error) => {
-        console.error('Signup error', error);
+        this._snackBar.open('Signup Error', 'close', { duration: 3000 });
       }
     );
   }

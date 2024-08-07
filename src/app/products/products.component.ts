@@ -1,7 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { ProductService } from '../product.service';
-import { CartService } from '../cart.service';
+import { ProductService } from '../services/product.service';
+import { CartService } from '../services/cart.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product',
@@ -19,8 +20,13 @@ export class ProductComponent {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private route: Router
+    private route: Router,
+    private _snackBar: MatSnackBar
   ) {}
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, { duration: 3000 });
+  }
 
   searchProducts() {
     if (!this.searchTerm.trim()) {
@@ -32,7 +38,7 @@ export class ProductComponent {
       (response) => {
         if (response.status_code === '1') {
           this.searchPerformed = true;
-          this.products = response.data.result;
+          this.products = response.data.result.slice(0, 14);
           const medicineIds = this.products.map(
             (product: any) => product.medicine_id
           );
@@ -50,20 +56,36 @@ export class ProductComponent {
                     : 'no';
                 });
               } else {
-                console.error('Error:', availabilityResponse.status_message);
+                this._snackBar.open(
+                  'Unable to check product availability. Please try again later.',
+                  'close',
+                  { duration: 3000 }
+                );
               }
             },
             (error) => {
-              console.error('Error checking availability:', error);
+              this._snackBar.open(
+                'Error checking availability. Please try again later.',
+                'close',
+                { duration: 3000 }
+              );
             }
           );
         } else {
-          console.error('Error:', response.status_message);
+          this._snackBar.open(
+            'Unable to perform product search. Please try again later.',
+            'close',
+            { duration: 3000 }
+          );
           this.searchPerformed = false;
         }
       },
       (error) => {
-        console.error('Error fetching products:', error);
+        this._snackBar.open(
+          'Error fetching products, please try again later.',
+          'close',
+          { duration: 3000 }
+        );
       }
     );
   }
@@ -72,9 +94,15 @@ export class ProductComponent {
     this.cartService.addToCart(product).subscribe(
       () => {
         this.shakeButton(this.cartButton);
+        this.openSnackBar(
+          'your medicine is added to the cart successfully!',
+          'close'
+        );
       },
       (error) => {
-        console.error('Error adding to cart:', error);
+        this._snackBar.open('Error adding to cart', 'close', {
+          duration: 3000,
+        });
       }
     );
   }
@@ -96,11 +124,9 @@ export class ProductComponent {
   //       if (response.status_code === '1') {
   //         this.selectedProductDetails = response.data; // Store the details
   //       } else {
-  //         console.error('Error:', response.status_message);
   //       }
   //     },
   //     (error) => {
-  //       console.error('Error fetching product details:', error);
   //     }
   //   );
   // }
@@ -112,11 +138,19 @@ export class ProductComponent {
           this.selectedProductDetails = response.data;
           this.openModal();
         } else {
-          console.error('Error:', response.status_message);
+          this._snackBar.open(
+            'Unable to fetch product details. Please try again later.',
+            'Close',
+            { duration: 3000 }
+          );
         }
       },
       (error) => {
-        console.error('Error fetching product details:', error);
+        this._snackBar.open(
+          'Error fetching product details. Please try again later.',
+          'Close',
+          { duration: 3000 }
+        );
       }
     );
   }
@@ -139,20 +173,32 @@ export class ProductComponent {
 
   fetchProductDetailsByIds(medicineIds: string[]) {
     if (medicineIds.length < 2) {
-      console.error('Error: At least 2 medicine IDs are required.');
+      this._snackBar.open(
+        'At least 2 medicine IDs are required to fetch details.',
+        'Close',
+        { duration: 3000 }
+      );
       return;
     }
 
     this.productService.getProductDetails(undefined, medicineIds).subscribe(
       (response) => {
         if (response.status_code === '1') {
-          this.selectedProductDetails = response.data; // Store the details
+          this.selectedProductDetails = response.data;
         } else {
-          console.error('Error:', response.status_message);
+          this._snackBar.open(
+            'Unable to fetch product details. Please try again later.',
+            'Close',
+            { duration: 3000 }
+          );
         }
       },
       (error) => {
-        console.error('Error fetching product details:', error);
+        this._snackBar.open(
+          'Error fetching product details. Please try again later.',
+          'Close',
+          { duration: 3000 }
+        );
       }
     );
   }

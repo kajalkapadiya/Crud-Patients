@@ -3,63 +3,65 @@
     <h1>Welcome to eVitalRx</h1>
     <p>Here, you can find the best medical solutions tailored to your needs.</p>
     <!-- <img src="assets/pharmacy.jpg" /> -->
-    <video autoplay muted loop class="background-video">
+    <!-- <video autoplay muted loop class="background-video">
       <source src="assets/pharmvid.mp4" type="video/mp4" />
       Your browser does not support the video tag.
-    </video>
+    </video> -->
   </div>
   <div class="right-side">
-    <div class="card">
-      <h3 class="card-header">
-        {{ isLoginMode ? "Login" : "Sign Up" }}
-      </h3>
-      <div class="card-body">
-        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-          <div class="form-group">
-            <input
-              type="email"
-              id="email"
-              ngModel
-              name="email"
-              class="form-control"
-              required
-              email
-              placeholder=" "
-            />
-            <label for="email">Email</label>
-          </div>
-          <div class="form-group">
-            <input
-              type="password"
-              id="password"
-              ngModel
-              name="password"
-              class="form-control"
-              required
-              minlength="6"
-              placeholder=" "
-            />
-            <label for="password">Password</label>
-          </div>
-          <div class="form-group">
-            <button
-              class="btn btn-primary"
-              type="submit"
-              [disabled]="!authForm.valid"
-            >
-              {{ isLoginMode ? "Login" : "Sign Up" }}
-            </button>
+    <h3 class="card-header">
+      {{ isLoginMode ? "Login" : "Sign Up" }}
+    </h3>
+    <p>
+      Please enter your email and password to login. If you don't have an
+      account, switch to Sign Up to create one.
+    </p>
+    <div class="card-body">
+      <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+        <div class="form-group">
+          <input
+            type="email"
+            id="email"
+            ngModel
+            name="email"
+            class="form-control"
+            required
+            email
+            placeholder=""
+          />
+          <label for="email" class="login_email">Email</label>
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            id="password"
+            ngModel
+            name="password"
+            class="form-control"
+            required
+            minlength="6"
+            placeholder=" "
+          />
+          <label for="password" class="login_pass">Password</label>
+        </div>
+        <div class="form-group btns">
+          <button
+            class="btn btn-login"
+            type="submit"
+            [disabled]="!authForm.valid"
+          >
+            {{ isLoginMode ? "Login" : "Sign Up" }}
+          </button>
 
-            <button
-              class="btn btn-secondary"
-              type="button"
-              (click)="onSwitchMode()"
-            >
-              Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
-            </button>
-          </div>
-        </form>
-      </div>
+          <button
+            class="btn btn-secondary"
+            type="button"
+            (click)="onSwitchMode()"
+          >
+            Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

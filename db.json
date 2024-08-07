@@ -1,114 +1,34 @@
 {
   "patients": [
     {
-      "name": "vidhi",
-      "age": 20,
-      "address": "103, shantikunj society",
-      "zipcode": 395009,
-      "mobile": 9724338640,
-      "first_name": "vidhi",
-      "last_name": "patel",
-      "dob": "2024-07-11",
-      "gender": "female",
-      "blood_group": "o+",
-      "id": 1,
-      "selected": true
-    },
-    {
-      "name": "0abc",
-      "age": 20,
-      "address": "surat",
-      "zipcode": 396885,
-      "mobile": 7777777777,
-      "first_name": "abc",
-      "last_name": "xyz",
-      "dob": "2024-07-11",
-      "gender": "female",
-      "blood_group": "B+",
-      "id": 2,
-      "selected": true
-    },
-    {
-      "name": "pqr",
-      "age": 50,
-      "address": "Ahmedabad",
-      "zipcode": 395884,
-      "mobile": 1111111111,
-      "first_name": "pqr",
-      "last_name": "patel",
-      "dob": "2024-07-05",
-      "gender": "male",
-      "blood_group": "B-",
-      "id": 3,
-      "selected": true
-    },
-    {
-      "name": "hubh",
-      "age": 89,
-      "address": "bin",
-      "zipcode": 900,
-      "mobile": 9724338640,
-      "first_name": "in",
-      "last_name": "ini",
-      "dob": "2024-08-02",
-      "gender": "other",
-      "blood_group": "B-",
-      "id": 5
-    },
-    {
+      "id": "f576e488-619a-4f1a-ac5d-074d52309b58",
       "name": "kajal",
-      "age": 20,
+      "age": 26,
       "address": "103, shantikunj society",
       "zipcode": 395009,
-      "mobile": 9724338640,
+      "mobile": 8200538696,
       "first_name": "kajal",
       "last_name": "kapadiya",
-      "dob": "2024-08-21",
-      "gender": "female",
-      "blood_group": "B-",
-      "id": 6,
-      "selected": true
-    },
-    {
-      "name": "kajal",
-      "age": 0,
-      "address": "103, shantikunj society",
-      "zipcode": 395009,
-      "mobile": 9724338640,
-      "first_name": "pqr",
-      "last_name": "pqr",
-      "dob": "2024-07-30",
+      "dob": "1998-02-07",
       "gender": "female",
       "blood_group": "O+",
-      "id": 7,
-      "selected": true
+      "email": "kajalkapadiya18@gmail.com",
+      "password": "1234567"
     },
     {
-      "name": "kajal",
+      "id": "f73fc724-40b8-4328-bd2d-e0b80c34a2e3",
+      "name": "test",
       "age": 20,
       "address": "103, shantikunj society",
       "zipcode": 395009,
       "mobile": 9724338640,
-      "first_name": "kajal",
+      "first_name": "test",
       "last_name": "patel",
-      "dob": "2024-08-30",
+      "dob": "2024-08-27",
       "gender": "female",
-      "blood_group": "B-",
-      "id": 8,
-      "selected": true
-    },
-    {
-      "name": "kajal",
-      "age": 70,
-      "address": "103, shantikunj society",
-      "zipcode": 395009,
-      "mobile": 9724338640,
-      "first_name": "kajal",
-      "last_name": "kapadiya",
-      "dob": "2024-08-30",
-      "gender": "female",
-      "blood_group": "B+",
-      "id": 9
+      "blood_group": "O+",
+      "email": "test@example.com",
+      "password": "1234567"
     }
   ],
   "users": [
@@ -131,7 +51,25 @@
           "patient_name": ""
         }
       ],
-      "cart": [],
+      "cart": [
+        {
+          "dosage_type": "tablet",
+          "medicine_name": "Dolo-650 Tablet",
+          "content": "Paracetamol (650mg)",
+          "mrp": "30.74",
+          "price": "30.74",
+          "medicine_id": "X1P9/F3XVunOtftRNNCyHA==",
+          "packing_size": "1 Strip of  15 Tablet",
+          "size": "15",
+          "manufacturer_name": "Micro Labs Ltd",
+          "medicine_type": "drug",
+          "gst_percentage": "12",
+          "available_for_patient": "yes",
+          "discontinued": "no",
+          "in_stock": "yes",
+          "quantity": 9
+        }
+      ],
       "id": 1
     },
     {
@@ -157,6 +95,13 @@
         }
       ],
       "id": 2
+    },
+    {
+      "email": "kajalkapadiya18@gmail.com",
+      "password": "1234567",
+      "order": [],
+      "cart": [],
+      "id": 3
     }
   ]
 }
