@@ -52,6 +52,16 @@ h2 {
   transition: background-color 0.3s, transform 0.3s;
 }
 
+.info-btn {
+  color: #044c9d;
+  border: 1px solid #044c9d;
+  padding: 7px 13px;
+  font-size: 17px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
 .add-to-cart-btn:hover {
   background-color: #044c9d;
   color: white;
@@ -160,4 +170,212 @@ h2 {
 tr.disabled {
   opacity: 0.5;
   pointer-events: none;
+}
+/* Mobile devices: 320px — 480px */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .input-group > .form-control,
+  .input-group > .form-floating,
+  .input-group > .form-select {
+    width: 100%;
+    min-width: 0; /* Ensure it can shrink */
+    flex: 1 1 auto;
+  }
+
+  .search-btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .show-cart-button {
+    bottom: 10px;
+    right: 10px;
+    padding: 8px;
+  }
+
+  .modal-dialog {
+    margin: 10px;
+  }
+}
+
+/* iPads, Tablets: 481px — 768px */
+@media (min-width: 481px) and (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .input-group > .form-control,
+  .input-group > .form-floating,
+  .input-group > .form-select {
+    width: 100%;
+    min-width: 0; /* Ensure it can shrink */
+    flex: 1 1 auto;
+  }
+
+  .search-btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .show-cart-button {
+    bottom: 15px;
+    right: 15px;
+    padding: 9px;
+  }
+
+  .modal-dialog {
+    margin: 20px;
+  }
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+/* Scrollbar styles for WebKit browsers (Chrome, Safari) */
+.table-responsive::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Scrollbar styles for WebKit browsers (Chrome, Safari) */
+.table-responsive::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #f8f9fa; /* Light gray background */
+  border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: #007bff; /* Theme blue color */
+  border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #0056b3; /* Darker shade for hover effect */
+}
+
+/* Scrollbar styles for Firefox */
+.table-responsive {
+  scrollbar-width: thin;
+  scrollbar-color: #007bff #f8f9fa; /* Blue thumb, light gray track */
+}
+
+/* Custom scrollbar track and thumb */
+.table-responsive {
+  overflow-x: auto;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: thin; /* Firefox */
+}
+
+.table-responsive::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #f8f9fa; /* Light gray background */
+  border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: #007bff; /* Theme blue color */
+  border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #0056b3; /* Darker shade for hover effect */
+}
+
+/* Small screens, laptops: 769px — 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    padding: 0 30px;
+  }
+
+  .input-group {
+    flex-direction: row;
+  }
+
+  .search-btn {
+    width: auto;
+    margin-left: 10px;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .show-cart-button {
+    bottom: 20px;
+    right: 20px;
+    padding: 10px;
+  }
+
+  .modal-dialog {
+    margin: 30px auto;
+    max-width: 600px;
+  }
+}
+
+/* Desktops, large screens: 1025px — 1200px */
+@media (min-width: 1025px) and (max-width: 1200px) {
+  .container {
+    padding: 0 40px;
+  }
+
+  .modal-dialog {
+    margin: 40px auto;
+    max-width: 800px;
+  }
+}
+
+/* Extra large screens, TV: 1201px and more */
+@media (min-width: 1201px) {
+  .container {
+    padding: 0 50px;
+  }
+
+  .modal-dialog {
+    margin: 50px auto;
+    max-width: 1000px;
+  }
 }

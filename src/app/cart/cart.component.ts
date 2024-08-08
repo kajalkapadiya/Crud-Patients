@@ -107,10 +107,11 @@ export class CartComponent implements OnInit {
   }
 
   getTotalPrice(): number {
-    return this.cartItems.reduce(
+    const total = this.cartItems.reduce(
       (total, item) => total + item.price * (item.quantity || 1),
       0
     );
+    return parseFloat(total.toFixed(2));
   }
 
   placeOrder(form: NgForm): void {

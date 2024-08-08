@@ -129,17 +129,16 @@ export class CartService {
         const userId = user.id;
         const cart = user.cart || [];
         const productIndex = cart.findIndex(
-          (item: any) => item.id === product.id
+          (item: any) => item.medicine_name === product.medicine_name
         );
 
         if (productIndex > -1) {
           if (cart[productIndex].quantity > 1) {
             cart[productIndex].quantity -= 1;
-            return this.updateUserCart(userId, cart);
           } else {
             cart.splice(productIndex, 1);
-            return this.updateUserCart(userId, cart);
           }
+          return this.updateUserCart(userId, cart);
         } else {
           return of(null); // Handle product not found in cart
         }

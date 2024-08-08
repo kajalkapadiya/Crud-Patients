@@ -30,7 +30,7 @@ export class AuthService {
             localStorage.setItem('token', 'fake-jwt-token');
             this.isAuthenticated.next(true);
             localStorage.setItem('user_email', email);
-            this.router.navigate(['/app-products']);
+            this.router.navigate(['/']);
           } else {
             this._snackBar.open('Invalid email or password', 'close', {
               duration: 3000,

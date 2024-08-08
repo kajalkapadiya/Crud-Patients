@@ -136,7 +136,9 @@ export class ProductComponent {
       (response) => {
         if (response.status_code === '1') {
           this.selectedProductDetails = response.data;
-          this.openModal();
+          setTimeout(() => {
+            this.openModal();
+          }, 0);
         } else {
           this._snackBar.open(
             'Unable to fetch product details. Please try again later.',

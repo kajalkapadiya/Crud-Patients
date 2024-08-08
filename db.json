@@ -11,9 +11,10 @@
       "last_name": "kapadiya",
       "dob": "1998-02-07",
       "gender": "female",
-      "blood_group": "O+",
+      "blood_group": "o+",
       "email": "kajalkapadiya18@gmail.com",
-      "password": "1234567"
+      "password": "1234567",
+      "selected": true
     },
     {
       "id": "f73fc724-40b8-4328-bd2d-e0b80c34a2e3",
@@ -53,6 +54,23 @@
       ],
       "cart": [
         {
+          "dosage_type": "capsule",
+          "medicine_name": "Betacard-AM Tablet",
+          "content": "Amlodipine (5mg) + Atenolol (50mg)",
+          "mrp": "18.45",
+          "price": "18.45",
+          "medicine_id": "pQTs1Qx9uywOSfDfaVauSg==",
+          "packing_size": "1 Strip of  10 Tablet",
+          "size": "10",
+          "manufacturer_name": "Torrent Pharmaceuticals Ltd",
+          "medicine_type": "drug",
+          "gst_percentage": "12",
+          "available_for_patient": "yes",
+          "discontinued": "no",
+          "in_stock": "yes",
+          "quantity": 9
+        },
+        {
           "dosage_type": "tablet",
           "medicine_name": "Dolo-650 Tablet",
           "content": "Paracetamol (650mg)",
@@ -67,7 +85,24 @@
           "available_for_patient": "yes",
           "discontinued": "no",
           "in_stock": "yes",
-          "quantity": 9
+          "quantity": 8
+        },
+        {
+          "dosage_type": "tablet",
+          "medicine_name": "Betacard-50 Tablet",
+          "content": "Atenolol (50mg)",
+          "mrp": "27.85",
+          "price": "27.85",
+          "medicine_id": "HfxsCvmDtBWZAifd3yffOA==",
+          "packing_size": "1 Strip of  14 Tablet",
+          "size": "14",
+          "manufacturer_name": "Torrent Pharmaceuticals Ltd",
+          "medicine_type": "drug",
+          "gst_percentage": "12",
+          "available_for_patient": "yes",
+          "discontinued": "no",
+          "in_stock": "yes",
+          "quantity": 1
         }
       ],
       "id": 1
