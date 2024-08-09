@@ -219,13 +219,13 @@ export class CartService {
     return this.http.get<any[]>(`${this.patientsListUrl}?email=${email}`).pipe(
       map((patients) => {
         if (patients.length === 0) {
-          throw new Error('User not found');
+          this._snackBar.open('User not found', 'close');
         }
         return patients[0];
       }),
       switchMap((patient) => {
         if (!patient) {
-          throw new Error('User is not a patient');
+          this._snackBar.open('User is not a patient', 'close');
         }
 
         const headers = new HttpHeaders({
