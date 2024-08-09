@@ -55,7 +55,7 @@
           <td class="text-center">
             <button
               class="btn info-btn"
-              (click)="fetchProductDetails(product.medicine_id)"
+              (click)="fetchProductDetails(product.medicine_id, content)"
             >
               info
             </button>
@@ -93,71 +93,51 @@
     </svg>
   </button>
 
+  <div *ngIf="selectedProductDetails" class="backdrop"></div>
+
   <!-- Product Details Modal -->
-  <div
-    *ngIf="selectedProductDetails"
-    class="modal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="productDetailsModalLabel"
-    aria-hidden="true"
-    id="productDetailsModal"
-  >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="productDetailsModalLabel">
-            Product Details
-          </h5>
-          <button
-            type="button"
-            class="close"
-            aria-label="Close"
-            (click)="closeModal()"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>
-            <strong>Medicine Name:</strong>
-            {{ selectedProductDetails.medicine_name }}
-          </p>
-          <p><strong>Content:</strong> {{ selectedProductDetails.content }}</p>
-          <p>
-            <strong>Dosage Type:</strong>
-            {{ selectedProductDetails.dosage_type }}
-          </p>
-          <p><strong>MRP:</strong> ₹{{ selectedProductDetails.mrp }}</p>
-          <p><strong>Price:</strong> ₹{{ selectedProductDetails.price }}</p>
-          <p>
-            <strong>Manufacturer Name:</strong>
-            {{ selectedProductDetails.manufacturer_name }}
-          </p>
-          <p>
-            <strong>Pack Size:</strong>
-            {{ selectedProductDetails.pack_size }}
-          </p>
-          <p>
-            <strong>How to Use:</strong>
-            {{ selectedProductDetails.how_to_use }}
-          </p>
-          <p>
-            <strong>Side Effects:</strong>
-            {{ selectedProductDetails.side_effects }}
-          </p>
-          <!-- Add more details as needed -->
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            (click)="closeModal()"
-          >
-            Close
-          </button>
-        </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header modal-lg" id="productDetailsModal">
+      <h4 class="modal-title" id="modal-basic-title">Products details</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-body">
+        <p>
+          <strong>Medicine Name:</strong>
+          {{ selectedProductDetails.medicine_name }}
+        </p>
+        <p><strong>Content:</strong> {{ selectedProductDetails.content }}</p>
+        <p>
+          <strong>Dosage Type:</strong>
+          {{ selectedProductDetails.dosage_type }}
+        </p>
+        <p><strong>MRP:</strong> ₹{{ selectedProductDetails.mrp }}</p>
+        <p><strong>Price:</strong> ₹{{ selectedProductDetails.price }}</p>
+        <p>
+          <strong>Manufacturer Name:</strong>
+          {{ selectedProductDetails.manufacturer_name }}
+        </p>
+        <p>
+          <strong>Pack Size:</strong>
+          {{ selectedProductDetails.pack_size }}
+        </p>
+        <p>
+          <strong>How to Use:</strong>
+          {{ selectedProductDetails.how_to_use }}
+        </p>
+        <p>
+          <strong>Side Effects:</strong>
+          {{ selectedProductDetails.side_effects }}
+        </p>
+        <!-- Add more details as needed -->
       </div>
     </div>
-  </div>
+  </ng-template>
 </div>

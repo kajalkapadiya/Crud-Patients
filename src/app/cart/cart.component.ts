@@ -32,7 +32,7 @@ export class CartComponent implements OnInit {
   loadCart(): void {
     const email = this.cartService.getLoggedInUserEmail();
     if (!email) {
-      this._snackBar.open('User not logged in', 'action', { duration: 3000 });
+      this._snackBar.open('User not logged in', 'close', { duration: 3000 });
 
       return;
     }

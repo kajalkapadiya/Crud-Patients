@@ -121,7 +121,7 @@ html {
 
 .form-group input {
   width: 100%;
-  padding: 0px 70px 0 70px;
+  padding: 0px 130px 0 10px;
   font-size: 18px;
   border-radius: 10px;
   border: none;
@@ -196,7 +196,7 @@ html {
 
 .form-group label.login_email,
 .form-group label.login_pass {
-  color: #044c9d; /* Ensure the color is applied */
+  color: #044c9d;
 }
 
 .btn-login {
@@ -210,4 +210,61 @@ p {
   display: flex;
   /* text-align: start; */
   justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left-side {
+    display: none;
+  }
+
+  .right-side {
+    margin: 20px;
+    width: 100%;
+  }
+
+  .right-side .card-header {
+    font-size: 50px;
+  }
+
+  .right-side p {
+    font-size: large;
+  }
+
+  .form-group input {
+    padding: 0 250px 0px 10px;
+    margin-top: 70px;
+  }
+
+  .btns {
+    flex-direction: column;
+  }
+
+  .btns button {
+    font-size: 30px;
+    padding: 10px 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .right-side {
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .card-header {
+    font-size: 18px;
+  }
+
+  .btns {
+    flex-direction: column;
+  }
+
+  .btns button {
+    margin-bottom: 10px;
+  }
 }

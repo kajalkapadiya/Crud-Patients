@@ -168,6 +168,7 @@
       id="blood_group"
       placeholder="Blood Group"
       [(ngModel)]="patient.blood_group"
+      (ngModelChange)="capitalizeBloodGroup()"
       name="blood_group"
       #blood_group="ngModel"
       maxlength="3"

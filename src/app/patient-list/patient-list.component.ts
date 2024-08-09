@@ -4,6 +4,7 @@ import { Patient } from 'src/app/models/patient.model';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ScreenSizeService } from '../services/screen-size.service';
 
 @Component({
   selector: 'app-patient-list',
@@ -18,6 +19,9 @@ export class PatientListComponent implements OnInit {
   itemsPerPage = 5;
   sortColumn: string = 'name';
   sortOrder: string = 'asc';
+  isSmallScreen = false;
+
+  @ViewChild('content', { static: true }) content: any;
 
   @ViewChild('editPatientModal', { static: true })
   editPatientModal!: TemplateRef<any>;
@@ -25,9 +29,14 @@ export class PatientListComponent implements OnInit {
   constructor(
     private patientService: PatientService,
     private modalService: NgbModal,
-    private route: Router,
-    private _snackBar: MatSnackBar
-  ) {}
+    private router: Router,
+    private _snackBar: MatSnackBar,
+    private screenSizeService: ScreenSizeService
+  ) {
+    this.screenSizeService.isSmallScreen$.subscribe((isSmall) => {
+      this.isSmallScreen = isSmall;
+    });
+  }
 
   ngOnInit(): void {
     this.fetchPatients();
@@ -42,7 +51,7 @@ export class PatientListComponent implements OnInit {
         }));
       },
       (error) => {
-        this._snackBar.open('message', 'action', { duration: 3000 });
+        this._snackBar.open('message', 'close', { duration: 3000 });
       }
     );
   }
@@ -60,13 +69,21 @@ export class PatientListComponent implements OnInit {
           this.editPatient = null;
         },
         () => {
-          this._snackBar.open('Error updating patients', 'action', {
+          this._snackBar.open('Error updating patients', 'close', {
             duration: 3000,
           });
         }
       );
     }
     this.closeModel();
+  }
+
+  onAddPatient(content: any) {
+    if (this.isSmallScreen) {
+      this.modalService.open(content);
+    } else {
+      this.router.navigate(['/add-patient']);
+    }
   }
 
   onDelete(id?: string): void {
@@ -76,13 +93,13 @@ export class PatientListComponent implements OnInit {
           this.fetchPatients();
         },
         (error) => {
-          this._snackBar.open('Error deleting patient', 'action', {
+          this._snackBar.open('Error deleting patient', 'close', {
             duration: 3000,
           });
         }
       );
     } else {
-      this._snackBar.open('Patient ID is undefined', 'action', {
+      this._snackBar.open('Patient ID is undefined', 'close', {
         duration: 3000,
       });
     }
@@ -94,6 +111,37 @@ export class PatientListComponent implements OnInit {
       modelDiv.style.display = 'block';
     }
   }
+
+  // open(content: TemplateRef<any>) {
+  //   const modalRef = this.modalService.open(content, {
+  //     ariaLabelledBy: 'modal-basic-title',
+  //   });
+
+  //   modalRef.result.then(
+  //     (result) => {
+  //       this.closeResult = `Complete the form click on Add patients.`;
+  //     },
+  //     (reason) => {
+  //       this.closeResult = `Dismissed ${this.getDismissReason(
+  //         reason
+  //       )} Click on Add patients to add in the table`;
+  //     }
+  //   );
+  // }
+
+  // private getDismissReason(reason: any): string {
+  //   if (reason === ModalDismissReasons.ESC) {
+  //     return 'by pressing ESC';
+  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+  //     return 'by clicking on the backdrop';
+  //   } else {
+  //     return `with: ${reason}`;
+  //   }
+  // }
+
+  // public navigateToOtherPage() {
+  //   this.router.navigate(['/other-page']);
+  // }
 
   open(content: TemplateRef<any>) {
     this.modalService
@@ -111,7 +159,7 @@ export class PatientListComponent implements OnInit {
   }
 
   search() {
-    this.route.navigate(['/app-products']);
+    this.router.navigate(['/app-products']);
   }
 
   private getDismissReason(reason: any): string {
@@ -127,6 +175,7 @@ export class PatientListComponent implements OnInit {
 
   closeModel() {
     const modelDiv = document.getElementById('myModal');
+    console.log('work');
     if (modelDiv != null) {
       modelDiv.style.display = 'none';
     }

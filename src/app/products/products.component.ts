@@ -1,8 +1,9 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { CartService } from '../services/cart.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-product',
@@ -21,7 +22,8 @@ export class ProductComponent {
     private productService: ProductService,
     private cartService: CartService,
     private route: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private modalService: NgbModal
   ) {}
 
   openSnackBar(message: string, action: string) {
@@ -131,13 +133,16 @@ export class ProductComponent {
   //   );
   // }
 
-  fetchProductDetails(medicineId: string) {
+  fetchProductDetails(medicineId: string, content: TemplateRef<any>) {
     this.productService.getProductDetails(medicineId).subscribe(
       (response) => {
         if (response.status_code === '1') {
           this.selectedProductDetails = response.data;
           setTimeout(() => {
-            this.openModal();
+            // this.openModal();
+            this.modalService.open(content, {
+              ariaLabelledBy: 'modal-basic-title',
+            });
           }, 0);
         } else {
           this._snackBar.open(
@@ -157,20 +162,16 @@ export class ProductComponent {
     );
   }
 
-  openModal() {
-    const modalElement = document.getElementById('productDetailsModal');
-    if (modalElement) {
-      (modalElement as any).style.display = 'block';
-      modalElement.classList.add('show');
-    }
+  open(content: TemplateRef<any>) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
-  closeModal() {
-    const modalElement = document.getElementById('productDetailsModal');
-    if (modalElement) {
-      (modalElement as any).style.display = 'none';
-      modalElement.classList.remove('show');
+  closeModel() {
+    const modelDiv = document.getElementById('productDetailsModal');
+    if (modelDiv != null) {
+      modelDiv.style.display = 'none';
     }
+    this.modalService.dismissAll();
   }
 
   fetchProductDetailsByIds(medicineIds: string[]) {
